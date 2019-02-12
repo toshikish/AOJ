@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 static const int N = 100;
-static const int NONE = 0;
+static const int NOT_YET = 0;
 static const int DETECTED = 1;
 static const int FINISHED = 2;
 
@@ -11,7 +11,7 @@ void dfs(int u, int n, int M[N][N], int status[], int t_detected[], int t_finish
     status[u] = DETECTED;
     t_detected[u] = ++t;
     for (int v = 0; v < n; v++) {
-        if (M[u][v] != 0 && status[v] == NONE) {
+        if (M[u][v] != 0 && status[v] == NOT_YET) {
             dfs(v, n, M, status, t_detected, t_finished, t);
         }
     }
@@ -41,14 +41,12 @@ int main() {
 
     int status[n], t_detected[n], t_finished[n];
     for (u = 0; u < n; u++) {
-        status[u] = NONE;
-        // t_detected[u] = 0;
-        // t_finished[u] = 0;
+        status[u] = NOT_YET;
     }
     int t = 0;
 
     for (u = 0; u < n; u++) {
-        if (status[u] == NONE) dfs(u, n, M, status, t_detected, t_finished, t);
+        if (status[u] == NOT_YET) dfs(u, n, M, status, t_detected, t_finished, t);
     }
 
     for (int i = 0; i < n; i++) {
